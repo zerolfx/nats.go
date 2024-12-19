@@ -94,9 +94,16 @@ func WithPurgeKeep(keep uint64) StreamPurgeOpt {
 // WithGetMsgSubject sets the stream subject from which the message should be
 // retrieved. Server will return a first message with a seq >= to the input seq
 // that has the specified subject.
-func WithGetMsgSubject(subject string) GetMsgOpt {
+func WithGetNextMsgSubject(subject string) GetMsgOpt {
 	return func(req *apiMsgGetRequest) error {
 		req.NextFor = subject
+		return nil
+	}
+}
+
+func WithGetLastMsgSubject(subject string) GetMsgOpt {
+	return func(req *apiMsgGetRequest) error {
+		req.LastFor = subject
 		return nil
 	}
 }
